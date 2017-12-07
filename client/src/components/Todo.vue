@@ -1,33 +1,32 @@
 <template>
-  <div>
+   <div>
     <div class="card">
       <div class="card-header">
-        Backlog
+        Todo
       </div>
       <div class="card-block" v-for="task in tasks">
         <h4 class="card-title">{{ task.title}}</h4>
         <p class="card-text">{{ task.desc }}</p>
-          <button type="button" class="btn" data-toggle="modal" @click="showDetail(task)" data-target="#myModal">
+          <button type="button" class="btn" data-toggle="modal" @click="showDetail(task)" data-target="#myModalTodo">
             More
           </button>
       </div>
     </div>
     <!-- modal -->
     <!-- Button trigger modal -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="myModalTodo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">BackLog</h5>
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               	<div class="loginmodal-container">
-                <h1>Back Log</h1><br>
-                <form>
-                  <label>Title</label>
+                <h1>Todo</h1><br>
+                <form>Title</label>
                   <input type="text" name="title" :value="detailTask.title">
                   <label>Desc</label>
                   <input type="text" name="desc"  :value="detailTask.desc">
@@ -35,12 +34,13 @@
                   <input type="text" name="point" :value="detailTask.point">
                   <label>Assigned To</label>
                   <input type="text" name="assignedTo" :value="detailTask.assignedTo">
-                  <input type="submit" name="add" class="login loginmodal-submit" value="Add ToDo" @click="addTodo">
+                  <input type="submit" name="add" class="login loginmodal-submit" value="To Doing" @click="addDoing">
                 </form> 
                 </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" @click="backlog()">Backlog</button>
               <button type="button" class="btn btn-danger" @click="remove()">Remove</button>
             </div>
           </div>
@@ -52,11 +52,10 @@
 <script>
 import db from '../firebase'
 export default {
-  name: 'Backlog',
+  name: 'Todo',
   props: ['tasks'],
   data () {
     return {
-      modalShow: false,
       detailTask: {
         title: '',
         desc: '',
@@ -75,14 +74,11 @@ export default {
       this.detailTask.assignedTo = task.assignedTo
       this.detailTask.key = task['.key']
     },
-    showModal (payload) {
-      this.task = payload
-    },
     remove () {
       console.log(this.detailTask.key)
-      db.ref(`/backlog/${this.detailTask.key}`).remove()
+      db.ref(`/todo/${this.detailTask.key}`).remove()
     },
-    addTodo () {
+    addDoing () {
       console.log('masuk todo')
       const newTask = {
         title: this.detailTask.title,
@@ -90,7 +86,11 @@ export default {
         point: this.detailTask.point,
         assignedTo: this.detailTask.assignedTo
       }
-      db.ref('/todo').push(newTask)
+      db.ref('/doing').push(newTask)
+      this.remove()
+    },
+    backlog: function () {
+      db.ref('/backlog').push(this.detailTask)
       this.remove()
     }
   }
@@ -102,6 +102,7 @@ export default {
   border-bottom: 1px solid #999;
 }
 .card-header {
-  background-color: #2ccc84
+  background-color: #213b70;
+  color:aliceblue;
 }
 </style>

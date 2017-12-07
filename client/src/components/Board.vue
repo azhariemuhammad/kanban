@@ -1,16 +1,20 @@
 <template>
   <div class="hello">
+    <p style="3rem;">< Hello there /></p>
     <Tasks/>
-    <p>Hello there</p>
+    <hr>
     <div class="row">
       <div class="col-md-3">
         <Backlog :tasks="backlog"/>
       </div>
       <div class="col-md-3">
-
+        <Todo :tasks="todo"/>
       </div>
       <div class="col-md-3">
-
+        <Doing :tasks="doing"/>
+      </div>
+      <div class="col-md-3">
+        <Done :tasks="done"/>
       </div>
     </div>
   </div>
@@ -19,17 +23,23 @@
 <script>
 import Tasks from '@/components/Tasks'
 import Backlog from '@/components/Backlog'
+import Todo from '@/components/Todo'
+import Done from '@/components/Done'
+import Doing from '@/components/Doing'
 import db from '../firebase'
 export default {
   name: 'Board',
-  components: {Tasks, Backlog},
+  components: {Tasks, Backlog, Todo, Doing, Done},
   data () {
     return {
 
     }
   },
   firebase: {
-    backlog: db.ref('/backlog')
+    backlog: db.ref('/backlog'),
+    todo: db.ref('/todo'),
+    done: db.ref('/done'),
+    doing: db.ref('/doing')
   }
 }
 </script>

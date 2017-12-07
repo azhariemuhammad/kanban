@@ -1,13 +1,14 @@
 <template>
   <div>
    <div class="login-btn">
-      <a href="#" class="button" data-toggle="modal" data-target="#login-modal">Login</a>
+      <a href="#" class="button" data-toggle="modal" data-target="#login-modal" style="color: #999;">Add Task</a>
       </div>
         <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     	  <div class="modal-dialog">
 				<div class="loginmodal-container">
         <h1>Add New Task</h1><br>
         <form @submit.prevent="addNewTask">
+          <label>Title</label>
           <input type="text" name="title" v-model="formNewTask.title" placeholder="Title">
           <input type="text" name="desc" v-model="formNewTask.desc" placeholder="Desc">
           <input type="text" name="point" v-model="formNewTask.point" placeholder="Point">
