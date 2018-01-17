@@ -42,6 +42,7 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-danger" @click="remove()">Remove</button>
+            cd ..
             </div>
           </div>
         </div>

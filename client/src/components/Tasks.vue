@@ -8,7 +8,6 @@
 				<div class="loginmodal-container">
         <h1>Add New Task</h1><br>
         <form @submit.prevent="addNewTask">
-          <label>Title</label>
           <input type="text" name="title" v-model="formNewTask.title" placeholder="Title">
           <input type="text" name="desc" v-model="formNewTask.desc" placeholder="Desc">
           <input type="text" name="point" v-model="formNewTask.point" placeholder="Point">
